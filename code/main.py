@@ -4,15 +4,34 @@ from os.path import join
 #from random import randint, uniform
 
 #pygame initialization
-pygame.init()
-WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
-center_screen = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
-display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("vampire survivor")
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        pygame.display.set_caption("vampire survivor")
 
 
-running = True
-clock = pygame.time.Clock()
+        self.running = True
+        self.clock = pygame.time.Clock()
+
+    def run(self):
+        while self.running:
+            #only one slash so it could be a float
+            dt = self.clock.tick()/1000
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+            self.display_surface.fill("darkgoldenrod1")
+            all_sprites.draw(self.display_surface)
+            all_sprites.update(dt)
+
+            pygame.display.update()
+
+
+        pygame.quit()
+
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, groups, image, pos):
@@ -29,24 +48,16 @@ class Player(pygame.sprite.Sprite):
         self.direction.x = int(keys[pygame.K_d] - int(keys[pygame.K_a]))
         self.direction.y = int(keys[pygame.K_s] - int(keys[pygame.K_w]))
         self.rect.center += self.direction * self.speed * dt
-#sprite
+
 all_sprites = pygame.sprite.Group()
 
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()
+#sprite
+
 #imports
-player = Player(all_sprites, pygame.image.load(join("..","images","player","down","0.png")).convert_alpha(),center_screen)
+player = Player(all_sprites, pygame.image.load(join("..","images","player","down","0.png")).convert_alpha(),
+                (WINDOW_WIDTH//2, WINDOW_HEIGHT//2))
 
-while running:
-    #only one slash so it could be a float
-    dt = clock.tick()/1000
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    display_surface.fill("darkgoldenrod1")
-    all_sprites.draw(display_surface)
-    all_sprites.update(dt)
-
-    pygame.display.update()
-
-
-pygame.quit()
