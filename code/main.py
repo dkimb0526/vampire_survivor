@@ -26,6 +26,17 @@ class Game:
             x, y = randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)
             w, h = randint(60,100), randint(50,100)
             CollisionSprite((x,y), (w,h), (self.all_sprites, self.collision_sprites))
+        self.setup()
+    def setup(self):
+        map = load_pygame(join("..","data","maps","world.tmx"))
+
+        
+        
+        for obj in map.get_layer_by_name("Objects"):
+            print(obj.x)
+            print(obj.y)
+            print(obj.image)
+
 
 
     def run(self):
