@@ -3,6 +3,7 @@ import pygame
 from os.path import join
 from player import Player
 from sprites import *
+from pytmx.util_pygame import load_pygame
 from random import randint, uniform
 
 
