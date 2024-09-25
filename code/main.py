@@ -19,6 +19,7 @@ class Game:
 
         #groups
         self.all_sprites = pygame.sprite.Group()
+        #used in play class for collision logic
         self.collision_sprites = pygame.sprite.Group()
 
         self.setup()
@@ -39,8 +40,8 @@ class Game:
             #print(obj.x)
             #print(obj.y)
             #print(obj.image)
-        #for obj in map.get_layer_by_name("Collisions"):
-
+        for obj in map.get_layer_by_name("Collisions"):
+            CollisionSprite((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.collision_sprites)
 
 
 
