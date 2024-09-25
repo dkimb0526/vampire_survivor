@@ -30,7 +30,7 @@ class Game:
         #import map objects
         map = load_pygame(join("..","data","maps","world.tmx"))
 
-        
+
         for x, y, image in map.get_layer_by_name("Ground").tiles():
             #x and y only for the position, but we need increase for each size of tile
             Sprite((x*TILE_SIZE,y*TILE_SIZE), image, self.all_sprites)
@@ -39,7 +39,8 @@ class Game:
             #print(obj.x)
             #print(obj.y)
             #print(obj.image)
-        
+        #for obj in map.get_layer_by_name("Collisions"):
+
 
 
 
