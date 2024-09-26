@@ -28,7 +28,6 @@ class Game:
         self.setup()
 
         #sprites
-        self.player = Player((500,300), self.all_sprites, self.collision_sprites)
 
     def setup(self):
         #import map objects
@@ -45,6 +44,12 @@ class Game:
             #print(obj.image)
         for obj in map.get_layer_by_name("Collisions"):
             CollisionSprite((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.collision_sprites)
+
+        #loop thru find the player obj and put him in the center
+        for obj in map.get_layer_by_name("Entities"):
+            if obj.name == "Player":
+                self.player = Player((obj.x,obj.y), self.all_sprites, self.collision_sprites)
+
 
 
 
