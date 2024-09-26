@@ -5,6 +5,8 @@ from player import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint, uniform
+from groups import AllSprites
+
 
 
 #pygame initialization
@@ -18,7 +20,8 @@ class Game:
         self.clock = pygame.time.Clock()
 
         #groups
-        self.all_sprites = pygame.sprite.Group()
+        #class object from groups.py
+        self.all_sprites = AllSprites()
         #used in play class for collision logic
         self.collision_sprites = pygame.sprite.Group()
 
@@ -53,7 +56,8 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
             self.display_surface.fill("darkgoldenrod1")
-            self.all_sprites.draw(self.display_surface)
+            #display surface being called in groups.py
+            self.all_sprites.draw(self.player.rect)
             self.all_sprites.update(dt)
             pygame.display.update()
         pygame.quit()
