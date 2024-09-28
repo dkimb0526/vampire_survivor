@@ -15,6 +15,7 @@ class AllSprites(pygame.sprite.Group):
         ground_sprites = [sprite for sprite in self if hasattr(sprite, "ground")]
         object_sprites = [sprite for sprite in self if not hasattr(sprite, "ground")]
 
+        #iterating through the two groups, ground sprite first, then object
         for layer in [ground_sprites, object_sprites]:
         #lambda extracts the y position, then the sorting function sorts based on the y
             for sprite in sorted(layer, key = lambda sprite: sprite.rect.centery):

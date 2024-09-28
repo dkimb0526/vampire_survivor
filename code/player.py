@@ -7,6 +7,8 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, collision_sprites):
         #set up
         super().__init__(groups)
+        #importing images for frames
+        self.load_images()
         self.image = pygame.image.load(join("..","images","player","down","0.png")).convert_alpha()
         self.rect = self.image.get_frect(center=(pos))
         self.hitbox_rect = self.rect.inflate(-60, -90)
@@ -15,6 +17,10 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.Vector2()
         self.speed = 500
         self.collision_sprites = collision_sprites
+
+    def load_images(self):
+        self.frames = {"left": [], "right": [], "up": [], "down": []}
+        walk(join("..","images","player"))
 
     def input(self):
         #return a list of boolean that returns true of the key is pressed at the index of list
