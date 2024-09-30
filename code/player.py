@@ -70,10 +70,14 @@ class Player(pygame.sprite.Sprite):
 
     def animate(self, dt):
         #get state
-
+        if self.direction.x != 0:
+            self.state = "right" if self.direction.x > 0 else "left"
+        if self.direction.y != 0:
+            self.state = "down" if self.direction.y > 0 else "up"
 
         #animate
-        self.frame_index += 5 * dt
+        #how fast i want to  animate
+        self.frame_index = self.frame_index + 5 * dt if self.direction else 0
         self.image = self.frames[self.state][int(self.frame_index) % len(self.frames[self.state])]
 
     def update(self, dt):
