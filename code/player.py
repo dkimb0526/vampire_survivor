@@ -9,6 +9,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
         #importing images for frames
         self.load_images()
+        self.state, self.frame_index = "down", 0
         self.image = pygame.image.load(join("..","images","player","down","0.png")).convert_alpha()
         self.rect = self.image.get_frect(center=(pos))
         self.hitbox_rect = self.rect.inflate(-60, -90)
@@ -20,7 +21,18 @@ class Player(pygame.sprite.Sprite):
 
     def load_images(self):
         self.frames = {"left": [], "right": [], "up": [], "down": []}
-        walk(join("..","images","player"))
+        
+        
+        for state in self.frames.keys():
+            for folder_path, sub_folders, file_names in walk(join("..","images","player", state)):
+                #To make sure the file name are loaded in order
+                if file_names:
+                    for file_name  in sorted(file_names, key= lambda name : int(name.split(".")[0])):
+                        full_path = join(folder_path, file_name)
+                        surf = pygame.image.load(full_path).convert_alpha()
+                        self.frames[state].append(surf)
+
+
 
     def input(self):
         #return a list of boolean that returns true of the key is pressed at the index of list
@@ -56,6 +68,15 @@ class Player(pygame.sprite.Sprite):
                     #moving down
                     if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
 
+    def animate(self, dt):
+        #get state
+
+
+        #animate
+        self.frame_index += 5 * dt
+        self.image = self.frames[self.state][int(self.frame_index) % len(self.frames[self.state])]
+
     def update(self, dt):
         self.input()
         self.move(dt)
+        self.animate(dt)
